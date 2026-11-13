@@ -1,7 +1,7 @@
 /* Section */
 .reviewsSection {
   padding: var(--spacing-lg) 0;
-  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #f8f9fa 100%);
+  background: color-mix(in srgb, var(--water) 24%, var(--cream));
   position: relative;
   overflow: hidden;
 }

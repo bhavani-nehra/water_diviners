@@ -1,8 +1,18 @@
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import Hero from "@/components/hero/Hero";
-import SectionsClient from "@/components/sections/SectionsClient";
+import Footer from "@/components/home/Footer";
+import Contact from "@/components/home/Contact";
+import EmailCta from "@/components/home/EmailCta";
+import Faq from "@/components/home/Faq";
+import Hero from "@/components/home/Hero";
+import WhoWeAre from "@/components/home/WhoWeAre";
+import WhatWeDo from "@/components/home/WhatWeDo";
+import HowWeWork from "@/components/home/HowWeWork";
 import { getSiteContent } from "@/lib/getSiteContent";
+import Loader from "@/components/home/Loader";
+import About from "@/components/home/About";
+import GalleryCarousel from "@/components/home/GalleryCarousel";
+import VideoSection from "@/components/home/VideoSection";
+import SmoothScroll from "@/components/home/SmoothScroll";
 import styles from "./page.module.css";
 import ReviewsSection from "@/components/sections/ReviewsSections";
 
@@ -15,21 +25,26 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [journey, process, services] = await Promise.all([
-    getSiteContent("journey"),
-    getSiteContent("process"),
-    getSiteContent("services"),
-  ]);
+  const [heroC, statsC] = await Promise.all([getSiteContent("hero"), getSiteContent("stats")]);
 
   return (
-    <main className={styles.main}>
+    <SmoothScroll>
+      <Loader />
+      <main className={styles.main}>
       <Navbar />
-      <Hero />
-      <SectionsClient journey={journey} process={process} services={services} />
+      <Hero c={heroC} stats={statsC} />
+      <About />
+      <GalleryCarousel />
+      <VideoSection />
+      <WhoWeAre />
+      <WhatWeDo />
+      <HowWeWork />
+      <Contact />
       <ReviewsSection />
-      <div id="contact">
-        <Footer />
-      </div>
+      <EmailCta />
+      <Faq />
+      <Footer />
     </main>
+    </SmoothScroll>
   );
 }

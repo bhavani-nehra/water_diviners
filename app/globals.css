@@ -15,8 +15,8 @@ body {
   font-family: var(--font-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-off-white);
-  color: var(--color-dark-gray);
+  background-color: var(--cream);
+  color: var(--ink);
   line-height: 1.6;
 }
 
@@ -44,6 +44,8 @@ img {
 }
 
 .section-title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.03em;
   font-size: var(--font-size-3xl);
   font-weight: 700;
   margin-bottom: var(--spacing-sm);

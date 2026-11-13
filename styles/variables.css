@@ -1,11 +1,18 @@
 :root {
-  /* Water-inspired Color Palette */
-  --color-primary: #0077be;
-  --color-primary-light: #00a8e8;
-  --color-primary-dark: #003d5c;
-  --color-secondary: #00b4d8;
-  --color-accent: #48cae4;
-  --color-water: #90e0ef;
+  /* Core palette — light blue appears only where water appears */
+  --cream: #f6f1e4;
+  --water: #8fd0f0;
+  --deep: #0b2a4a;
+  --ink: #14181c;
+
+  /* Legacy aliases (admin + SEO pages) mapped onto the new palette */
+  --color-primary: var(--deep);
+  --color-primary-light: #1b5d8f;
+  --color-primary-dark: #071c33;
+  --color-secondary: #1b5d8f;
+  --color-accent: var(--water);
+  --color-water: var(--water);
+  --color-off-white: var(--cream);
   --color-earth: #8b6f47;
   --color-earth-dark: #5c4a30;
   --color-soil: #c9a876;
@@ -14,7 +21,7 @@
   --color-white: #ffffff;
   --color-light-gray: #e9ecef;
   --color-gray: #6c757d;
-  --color-dark-gray: #343a40;
+  --color-dark-gray: #2a3036;
   --color-black: #000000;
 
   /* Success/Status Colors */
@@ -31,9 +38,8 @@
   --spacing-xxl: 8rem;
 
   /* Typography */
-  --font-primary:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-primary: var(--font-body), system-ui, sans-serif;
+  --font-display: var(--font-display-face), system-ui, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;

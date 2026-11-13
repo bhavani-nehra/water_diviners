@@ -288,6 +288,10 @@ export default function ReviewsSectionClient({ initialReviews, userSession }) {
                     <img
                       src={review.image}
                       alt={review.name}
+                      width={60}
+                      height={60}
+                      loading="lazy"
+                      decoding="async"
                       className={styles.avatar}
                       referrerPolicy="no-referrer"
                       onError={(e) => {
@@ -439,6 +443,8 @@ export default function ReviewsSectionClient({ initialReviews, userSession }) {
                     <img
                       src={resolvedSession.user.image}
                       alt={resolvedSession.user.name}
+                      width={48}
+                      height={48}
                       className={styles.dialogAvatar}
                       referrerPolicy="no-referrer"
                     />

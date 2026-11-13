@@ -1,6 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import styles from "@/styles/navbar.module.css";
 
@@ -13,6 +15,7 @@ export default function NavbarClient({
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -23,10 +26,27 @@ export default function NavbarClient({
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "#about", label: "About" },
+    { href: "#gallery", label: "Gallery" },
     { href: "#services", label: "Services" },
+    { href: "#process", label: "Process" },
     { href: "#contact", label: "Contact" },
+    { href: "#faq", label: "FAQ" },
     ...(isAdmin ? [{ href: "/admin/dashboard", label: "⚙️ Admin" }] : []),
   ];
+
+  // Secret: 5 quick taps on the logo icon opens admin login
+  const logoTaps = useRef({ count: 0, last: 0 });
+  const handleLogoIconClick = (e) => {
+    const now = Date.now();
+    const t = logoTaps.current;
+    t.count = now - t.last < 1500 ? t.count + 1 : 1;
+    t.last = now;
+    if (t.count >= 3) {
+      t.count = 0;
+      e.preventDefault();
+      router.push("/admin/login");
+    }
+  };
 
   const handleNavClick = (e, href) => {
     if (!href.startsWith("#")) return;
@@ -47,7 +67,7 @@ export default function NavbarClient({
       <div className={`container ${styles.navContainer}`}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <div className={styles.logoIcon}>
+          <div className={styles.logoIcon} onClick={handleLogoIconClick}>
             <Image
               src="/logo.jpeg"
               alt="Logo"

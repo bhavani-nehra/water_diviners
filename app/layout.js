@@ -1,5 +1,25 @@
+import { Bricolage_Grotesque, Instrument_Sans, Fraunces } from "next/font/google";
 import Providers from "@/components/layout/Providers";
+import Grain from "@/components/home/Grain";
 import "./globals.css";
+
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display-face",
+  display: "swap",
+});
+const serif = Fraunces({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
+  variable: "--font-serif",
+  display: "swap",
+});
+const body = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 const BASE_URL = "https://mmswaterdiviners.in";
 
@@ -45,7 +65,7 @@ export const metadata = {
       "Professional groundwater scanning & borewell experts in Kankavli, Maharashtra. 10+ years experience. 95% success rate. Call 9370427023.",
     images: [
       {
-        url: "/og-image.png", // → create this file! (see below)
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "M.M.S Water Diviners - Professional Groundwater Survey Kankavli",
@@ -73,28 +93,18 @@ export const metadata = {
     },
   },
 
-  // ⚠️ After Google Search Console verifies you, paste the code here:
-  verification: {
-    google: "PASTE_YOUR_GOOGLE_VERIFICATION_CODE_HERE",
-  },
 };
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0077be",
+  themeColor: "#0b2a4a",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${body.variable} ${serif.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
 
         {/* JSON-LD — tells Google this is a Local Business with rich data */}
         <script
@@ -103,13 +113,29 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "@id": "https://mmswaterdiviners.in",
+              "@id": "https://mmswaterdiviners.in/#business",
               name: "M.M.S Water Diviners",
               alternateName: "MMS Water Diviners",
               description:
                 "Professional geophysical groundwater survey experts in Kankavli, Maharashtra. Specializing in borewell point marking, depth estimation, and aquifer detection.",
               url: "https://mmswaterdiviners.in",
               telephone: "+919370427023",
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+919370427023",
+                  contactType: "customer service",
+                  areaServed: "IN",
+                  availableLanguage: ["en", "hi", "mr"],
+                },
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+919112427023",
+                  contactType: "customer support",
+                  areaServed: "IN",
+                  availableLanguage: ["en", "hi", "mr"],
+                },
+              ],
               email: "dhananjays637@gmail.com",
               founder: {
                 "@type": "Person",
@@ -118,24 +144,18 @@ export default function RootLayout({ children }) {
               },
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Near Rameshwar Mandir, Bivnewadi, Bhiravande",
                 addressLocality: "Kankavli",
                 addressRegion: "Maharashtra",
                 addressCountry: "IN",
-                postalCode: "416602",
+                postalCode: "416609",
               },
               geo: {
                 "@type": "GeoCoordinates",
                 latitude: "16.5575",
                 longitude: "73.7089",
               },
-              areaServed: [
-                "Kankavli",
-                "Sindhudurg",
-                "Malvan",
-                "Kudal",
-                "Sawantwadi",
-                "Maharashtra",
-              ],
+              areaServed: ["Kankavli","Sindhudurg","Malvan","Kudal","Sawantwadi","Vaibhavwadi","Devgad","Vengurla","Dodamarg","Maharashtra"],
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Groundwater Survey Services",
@@ -180,12 +200,31 @@ export default function RootLayout({ children }) {
               foundingDate: "2012",
               priceRange: "₹₹",
               image: "https://mmswaterdiviners.in/og-image.png",
-              sameAs: ["https://wa.me/9370427023"],
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              hasMap: "https://www.google.com/maps?cid=7520482754261218899",
+              sameAs: [
+                "https://wa.me/919370427023",
+                "https://www.google.com/maps?cid=7520482754261218899",
+              ],
             }),
           }}
         />
       </head>
       <body>
+        <Grain />
         <Providers>{children}</Providers>
       </body>
     </html>

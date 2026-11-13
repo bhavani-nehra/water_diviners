@@ -1,0 +1,136 @@
+.section {
+  background: var(--deep);
+  color: var(--cream);
+  padding: clamp(56px, 8vw, 110px) 0;
+}
+.inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0 0 10px;
+}
+.lead {
+  margin: 0 0 28px;
+  opacity: 0.8;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+}
+.stageWrap {
+  position: relative;
+  border-radius: 24px 24px 24px 6px;
+  overflow: hidden;
+  background: var(--ink);
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+.stage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.bigPlay {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 2px solid var(--cream);
+  background: rgba(11, 42, 74, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--cream);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: transform 0.25s, background 0.25s;
+}
+.bigPlay:hover,
+.bigPlay:focus-visible {
+  transform: scale(1.08);
+  background: var(--water);
+  color: var(--ink);
+  outline: none;
+}
+.controls {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  display: flex;
+  gap: 8px;
+}
+.controls button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 241, 228, 0.5);
+  background: rgba(20, 24, 28, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--cream);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.controls button:hover,
+.controls button:focus-visible {
+  background: var(--water);
+  color: var(--ink);
+  outline: none;
+}
+.caption {
+  margin: 14px 0 0;
+  font-weight: 600;
+}
+.strip {
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 6px;
+}
+.thumb {
+  width: 150px;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  padding: 0;
+  background: var(--ink);
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+.thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.thumb:hover,
+.thumb:focus-visible {
+  opacity: 1;
+  outline: none;
+  transform: translateY(-2px);
+}
+.thumbOn {
+  opacity: 1;
+  border-color: var(--water);
+}
+@media (max-width: 640px) {
+  .thumb {
+    width: 112px;
+  }
+  .bigPlay {
+    width: 68px;
+    height: 68px;
+  }
+}

@@ -1,0 +1,495 @@
+.hero {
+  position: relative;
+  min-height: max(100svh, 640px);
+  background: var(--cream);
+  overflow: hidden;
+}
+.visual {
+  position: absolute;
+  inset: 76px 0 0 0;
+}
+.art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* living details in the cross-section */
+.waveA {
+  animation: slideA 9s linear infinite;
+}
+.waveB {
+  animation: slideB 13s linear infinite;
+}
+@keyframes slideA {
+  to {
+    transform: translateX(-200px);
+  }
+}
+@keyframes slideB {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.bubble {
+  animation: rise 6s ease-in infinite;
+}
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-70px);
+    opacity: 0;
+  }
+}
+
+/* drilling rig in a loop: head feeds down, rod and bit turn, chips and dust fly */
+.mast {
+  animation: shake 0.09s linear infinite alternate;
+}
+@keyframes shake {
+  from {
+    transform: translateX(-0.7px);
+  }
+  to {
+    transform: translateX(0.7px);
+  }
+}
+.head {
+  animation: feed 7s linear infinite;
+}
+@keyframes feed {
+  0% {
+    transform: translateY(0);
+  }
+  82% {
+    transform: translateY(58px);
+  }
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-in-out;
+  }
+}
+.hose {
+  animation: sway 7s linear infinite;
+}
+@keyframes sway {
+  50% {
+    transform: translateY(5px);
+  }
+}
+.rodSpin {
+  animation: spin 0.45s linear infinite;
+}
+.rodSpinTop {
+  animation: spinTop 0.45s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: translateY(12.5px);
+  }
+}
+@keyframes spinTop {
+  to {
+    transform: translateY(16px);
+  }
+}
+.bitTurn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turn 0.5s ease-in-out infinite alternate;
+}
+@keyframes turn {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(-1);
+  }
+}
+.teeth {
+  animation: ring 0.4s linear infinite;
+}
+@keyframes ring {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+.chip {
+  animation: fly 1.8s ease-out infinite;
+}
+@keyframes fly {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(var(--dx), -34px);
+    opacity: 0;
+  }
+}
+.puff {
+  animation: smoke 3.4s ease-out infinite;
+}
+@keyframes smoke {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(10px, -46px) scale(2.6);
+    opacity: 0;
+  }
+}
+.dust {
+  animation: kick 2.8s ease-out infinite;
+}
+@keyframes kick {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(var(--dx), -22px) scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* scan layer: veins are drawn on a canvas masked to the ground, right of the panel edge */
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.stageWrap {
+  position: absolute;
+}
+.stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  cursor: crosshair;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 230 1440 490' preserveAspectRatio='none'%3E%3Cpath d='M430,230 L1440,230 L1440,720 L930,720 C880,670 790,615 700,540 C560,420 520,310 430,230 Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 230 1440 490' preserveAspectRatio='none'%3E%3Cpath d='M430,230 L1440,230 L1440,720 L930,720 C880,670 790,615 700,540 C560,420 520,310 430,230 Z'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hint {
+  position: absolute;
+  left: 76.5%;
+  top: 5%;
+  width: 16%;
+  margin: 0;
+  color: var(--cream);
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  line-height: 1.35;
+  opacity: 0.9;
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.hintM {
+  display: none;
+}
+
+/* copy column on the cream panel */
+.copy {
+  position: relative;
+  z-index: 2;
+  width: min(560px, 34vw);
+  min-height: max(100svh, 640px);
+  margin-left: max(var(--container-padding), calc((100vw - 1400px) / 2 + var(--container-padding)));
+  padding: clamp(110px, 17vh, 160px) 0 clamp(32px, 6vh, 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.title {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  font-size: clamp(2.5rem, 4.8vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--deep);
+  margin: 0 0 clamp(16px, 2.6vh, 24px);
+}
+.line {
+  display: block;
+}
+.lineTwo {
+  font-style: italic;
+  font-weight: 400;
+  color: #1b5d8f;
+}
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.04em 0.14em 0;
+  margin-bottom: -0.14em;
+}
+.wordInner {
+  display: inline-block;
+  will-change: transform;
+}
+.sub {
+  font-size: clamp(0.98rem, 1.25vw, 1.15rem);
+  color: var(--ink);
+  max-width: 36ch;
+  margin: 0 0 clamp(16px, 3vh, 26px);
+  line-height: 1.55;
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid var(--deep);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.btnPrimary {
+  background: var(--deep);
+  color: var(--cream);
+}
+.btnGhost {
+  background: transparent;
+  color: var(--deep);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btnPrimary:hover {
+  background: var(--ink);
+}
+.btnGhost:hover {
+  background: var(--deep);
+  color: var(--cream);
+}
+.btn:focus-visible {
+  outline: 3px solid var(--water);
+  outline-offset: 3px;
+}
+.stats {
+  width: min(100%, 470px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: clamp(26px, 5vh, 46px) 0 0;
+  background: var(--deep);
+  color: var(--cream);
+  border-radius: 18px 18px 18px 4px;
+  box-shadow: 0 18px 36px rgba(11, 42, 74, 0.28);
+}
+.stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px 15px;
+}
+.stats div + div {
+  border-left: 1px solid rgba(246, 241, 228, 0.28);
+}
+.stats dd {
+  order: 1;
+  margin: 0;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--water);
+  font-variant-numeric: tabular-nums;
+}
+.stats dt {
+  order: 2;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+/* pin + reading */
+.pin {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border-radius: 50%;
+  background: var(--water);
+  box-shadow: 0 0 0 6px rgba(143, 208, 240, 0.3), 0 0 24px var(--water);
+  pointer-events: none;
+}
+.card {
+  position: absolute;
+  z-index: 4;
+  width: 270px;
+  max-width: calc(100% - 16px);
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  cursor: default;
+}
+.cardDepth {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  color: var(--deep);
+  line-height: 1;
+}
+.cardTier {
+  margin: 6px 0 4px;
+  font-weight: 600;
+}
+.cardNote {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.cardCtas {
+  display: flex;
+  gap: 8px;
+}
+.cardBtn {
+  flex: 1;
+  text-align: center;
+  padding: 10px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--deep);
+  color: var(--cream);
+  border: 2px solid var(--deep);
+}
+.cardBtnAlt {
+  background: transparent;
+  color: var(--deep);
+}
+.cardBtn:focus-visible,
+.close:focus-visible {
+  outline: 3px solid var(--water);
+  outline-offset: 2px;
+}
+.close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: transparent;
+  border: 0;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+/* tablets and phones: art on top, copy below */
+@media (max-width: 860px) {
+  .hero {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding-top: 76px;
+  }
+  .visual {
+    position: relative;
+    inset: auto;
+    margin: 0;
+    height: 50svh;
+    min-height: 360px;
+    max-height: 470px;
+  }
+  .panel,
+  .geoLabels,
+  .ruler {
+    display: none;
+  }
+  .stage {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .copy {
+    width: auto;
+    min-height: 0;
+    margin: -30px 0 0;
+    padding: 34px var(--container-padding) 44px;
+    background: var(--cream);
+    border-radius: 34px 34px 0 0;
+    justify-content: flex-start;
+  }
+  .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+  .hint {
+    display: none;
+  }
+  .hintM {
+    display: block;
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 44px;
+    margin: 0;
+    text-align: center;
+    color: var(--cream);
+    font-size: 0.78rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+  }
+  .stats {
+    width: 100%;
+  }
+  .stats div {
+    padding: 14px 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .waveA,
+  .waveB,
+  .bubble,
+  .mast,
+  .head,
+  .hose,
+  .rodSpin,
+  .rodSpinTop,
+  .bitTurn,
+  .teeth,
+  .chip,
+  .puff,
+  .dust {
+    animation: none;
+  }
+}

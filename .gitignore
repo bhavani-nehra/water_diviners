@@ -36,3 +36,4 @@ next-env.d.ts
 all_changes.patch
 REPO_CONTEXT.txt
 DEBUG_SMART.txt
+.superpowers/
